@@ -1,0 +1,17 @@
+{
+  "name": "Akoya Telecomunicações",
+  "short_name": "Akoya",
+  "lang": "pt-AO",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#040e1b",
+  "theme_color": "#071426",
+  "icons": [
+    {
+      "src": "images/akoya_favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
