@@ -37,8 +37,21 @@ window.addEventListener('resize', () => {
 });
 
 const siteHeader = document.querySelector('.site-header');
-const updateHeader = () => siteHeader?.classList.toggle('scrolled', window.scrollY > 24);
+const siteFooter = document.querySelector('.site-footer');
+const footerBrandVisible = () => {
+  if (!siteFooter) return;
+  const footerTop = siteFooter.getBoundingClientRect().top;
+  const footerVisible = footerTop <= window.innerHeight - 24;
+  siteHeader?.classList.toggle('footer-visible', footerVisible);
+  document.body.classList.toggle('footer-visible', footerVisible);
+};
+const updateHeader = () => {
+  if (!siteHeader) return;
+  siteHeader.classList.toggle('scrolled', window.scrollY > 24);
+  footerBrandVisible();
+};
 window.addEventListener('scroll', updateHeader, { passive: true });
+window.addEventListener('resize', footerBrandVisible, { passive: true });
 updateHeader();
 
 if ('IntersectionObserver' in window) {
@@ -96,7 +109,7 @@ if (!document.querySelector('.whatsapp-float')) {
   whatsappLink.setAttribute('aria-label', 'Conversar com a Akoya Telecomunicações pelo WhatsApp');
   whatsappLink.innerHTML = `
     <span class="whatsapp-float-icon" aria-hidden="true">
-      <svg viewBox="0 0 32 32"><path d="M16.04 3C8.86 3 3.02 8.84 3.02 16c0 2.29.6 4.52 1.74 6.48L3 29l6.68-1.75A13 13 0 1 0 16.04 3Zm0 23.62a10.7 10.7 0 0 1-5.45-1.49l-.39-.23-3.96 1.04 1.06-3.86-.25-.39A10.72 10.72 0 1 1 16.04 26.62Zm5.91-8.01c-.32-.16-1.9-.94-2.19-1.05-.29-.11-.51-.16-.73.16-.22.32-.83 1.05-1.02 1.26-.19.22-.38.24-.7.08-.32-.16-1.37-.5-2.61-1.61-.96-.86-1.61-1.92-1.8-2.24-.19-.32-.02-.5.14-.66.14-.14.32-.38.48-.57.16-.19.22-.32.32-.54.11-.22.05-.4-.03-.57-.08-.16-.73-1.75-.99-2.4-.26-.63-.53-.54-.73-.55h-.62c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67 0 1.58 1.15 3.1 1.31 3.31.16.22 2.26 3.45 5.47 4.84.76.33 1.36.53 1.82.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor" shape-rendering="geometricPrecision"><path d="M12 2a10 10 0 0 0-8.49 15.27L2.1 22l4.86-1.27A10 10 0 1 0 12 2Zm0 18.1a8.07 8.07 0 0 1-4.11-1.13l-.3-.18-2.89.76.77-2.82-.19-.29A8.1 8.1 0 1 1 12 20.1Zm4.16-5.99c-.23-.12-1.35-.67-1.56-.74-.21-.08-.36-.12-.52.12-.15.23-.59.74-.72.89-.13.15-.27.17-.5.06-.23-.12-.97-.36-1.84-1.14-.68-.61-1.14-1.36-1.27-1.59-.13-.23-.01-.35.1-.47.1-.1.23-.27.34-.4.11-.13.15-.23.23-.38.08-.15.04-.29-.02-.4-.06-.12-.52-1.24-.71-1.69-.19-.44-.38-.38-.52-.39h-.44c-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.36c.12.15 1.61 2.46 3.91 3.45.55.24.98.38 1.31.48.55.17 1.05.15 1.44.09.44-.07 1.35-.55 1.54-1.08.19-.53.19-.98.13-1.08-.06-.1-.21-.15-.44-.27Z"/></svg>
     </span>
   `;
   document.body.appendChild(whatsappLink);
